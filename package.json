@@ -1,0 +1,29 @@
+{
+  "name": "think-tank-college",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^5.4.2"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.3.1",
+    "@vidstack/react": "^1.12.12",
+    "@vitejs/plugin-react": "^4.7.0",
+    "clsx": "^2.1.1",
+    "framer-motion": "^12.42.0",
+    "lucide-react": "^1.21.0",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "react-icons": "^5.7.0",
+    "react-router-dom": "^7.18.0",
+    "swiper": "^14.0.5",
+    "tailwindcss": "^4.3.1",
+    "vidstack": "^1.12.12"
+  }
+}
