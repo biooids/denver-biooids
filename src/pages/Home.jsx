@@ -182,47 +182,6 @@ export default function Home() {
 
       {/* Hero Section */}
       <section className="relative px-6 pt-32 pb-16 md:pt-40 md:pb-24 relative-z flex items-center">
-        {/* Floating African Heritage Assets (Background) */}
-        <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
-          {/* African Map */}
-          <img
-            src="https://res.cloudinary.com/dwk1wfwpw/image/upload/v1783857610/images_2_f4sna7.jpg"
-            alt="Africa Map"
-            className="absolute top-[5%] right-[5%] w-[50vw] max-w-[700px] opacity-10 mix-blend-lighten animate-pulse"
-            style={{ animationDuration: "10s" }}
-          />
-          {/* Rwanda Map */}
-          <img
-            src="https://res.cloudinary.com/dwk1wfwpw/image/upload/v1783857537/images_guqihu.png"
-            alt="Rwanda Map"
-            className="absolute bottom-[10%] left-[5%] w-[180px] opacity-15 mix-blend-lighten"
-          />
-          {/* ALU Logo */}
-          <div className="absolute top-[20%] left-[10%] w-24 h-24 rounded-full overflow-hidden opacity-[0.15] border border-white/10">
-            <img
-              src="https://res.cloudinary.com/dwk1wfwpw/image/upload/v1783857482/images_1_fepcf6.jpg"
-              alt="ALU Logo"
-              className="w-full h-full object-cover mix-blend-screen"
-            />
-          </div>
-          {/* Heritage Portrait 1 */}
-          <div className="absolute bottom-[20%] right-[40%] w-32 h-40 rounded-xl overflow-hidden opacity-10 blur-[1px]">
-            <img
-              src="https://res.cloudinary.com/dwk1wfwpw/image/upload/v1783858026/images_3_cuo6r9.jpg"
-              alt="African Heritage"
-              className="w-full h-full object-cover"
-            />
-          </div>
-          {/* Heritage Portrait 2 */}
-          <div className="absolute top-[15%] right-[35%] w-36 h-36 rounded-full overflow-hidden opacity-10 blur-[1px]">
-            <img
-              src="https://res.cloudinary.com/dwk1wfwpw/image/upload/v1783858256/360_F_730673235_cooJf5AXhEPuX3W62rvjzDV9IRs0UhMw_ncci6o.jpg"
-              alt="African Heritage"
-              className="w-full h-full object-cover"
-            />
-          </div>
-        </div>
-
         {/* Vertical Editorial Accents */}
         <div className="hidden xl:block absolute left-6 top-1/2 -translate-y-1/2 -rotate-90 origin-left text-[#495057] font-[Space_Grotesk] tracking-[0.5em] text-xs font-bold uppercase z-10">
           KIGALI, RWANDA
