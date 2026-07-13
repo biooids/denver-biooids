@@ -6,13 +6,12 @@ export default function Footer() {
     <footer className="bg-[#080808] border-t border-[rgba(255,255,255,0.05)] pt-16 pb-8 px-6 relative-z mt-auto">
       <div className="max-w-[1200px] mx-auto flex flex-col items-center text-center">
         {/* Branding */}
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-12 h-12 flex items-center justify-center bg-gradient-to-br from-[#f5a623] to-[#d48806] rounded-xl font-[Space_Grotesk] font-bold text-[#080808] text-base shadow-[0_0_15px_rgba(245,166,35,0.2)]">
-            DTT
-          </div>
-          <span className="font-[Space_Grotesk] font-bold text-2xl text-white tracking-wide">
-            Denver Think Tank
-          </span>
+        <div className="flex items-center justify-center mb-6">
+          <img
+            src="https://res.cloudinary.com/dwk1wfwpw/image/upload/v1783955606/ChatGPT_Image_Jul_13_2026_05_12_56_PM_qssp2j.png"
+            alt="Denver Think Tank Logo"
+            className="h-14 md:h-16 w-auto object-contain drop-shadow-[0_0_15px_rgba(245,166,35,0.2)]"
+          />
         </div>
 
         {/* Mission Statement */}

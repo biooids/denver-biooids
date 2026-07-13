@@ -4,6 +4,20 @@ import { motion } from "framer-motion";
 import { Mail, Copy, Check } from "lucide-react";
 import { Link } from "react-router-dom";
 
+// Custom Hook to check for mobile
+function useIsMobile(breakpoint = 768) {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < breakpoint);
+    checkMobile(); // Check immediately
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, [breakpoint]);
+
+  return isMobile;
+}
+
 const teamMembers = [
   {
     name: "Ajah Mawut Pech",
@@ -65,6 +79,7 @@ const teamMembers = [
 
 function MemberCard({ member, index }) {
   const [copied, setCopied] = useState(false);
+  const isMobile = useIsMobile();
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText(member.email);
@@ -74,8 +89,14 @@ function MemberCard({ member, index }) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 40, scale: 0.95, filter: "blur(5px)" }}
-      whileInView={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
+      initial={
+        isMobile
+          ? false
+          : { opacity: 0, y: 40, scale: 0.95, filter: "blur(5px)" }
+      }
+      whileInView={
+        isMobile ? {} : { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }
+      }
       viewport={{ once: false, amount: 0.2 }}
       transition={{
         duration: 0.6,
@@ -155,8 +176,12 @@ function MemberCard({ member, index }) {
 }
 
 export default function Team() {
-  // Fluid Blob tracking logic
+  const isMobile = useIsMobile();
+
+  // Fluid Blob tracking logic - Disabled on mobile
   useEffect(() => {
+    if (window.innerWidth < 768) return;
+
     const blob = document.getElementById("cursor-blob");
     if (!blob) return;
 
@@ -178,14 +203,16 @@ export default function Team() {
   return (
     <div className="relative pt-24 pb-16 overflow-x-clip">
       {/* FLUID BLOB */}
-      <div id="cursor-blob"></div>
+      {!isMobile && <div id="cursor-blob"></div>}
 
       {/* Hero */}
       <section className="px-6 pb-16 relative-z">
         <div className="max-w-[1200px] mx-auto">
           <motion.div
-            initial={{ opacity: 0, y: 40, filter: "blur(10px)" }}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            initial={
+              isMobile ? false : { opacity: 0, y: 40, filter: "blur(10px)" }
+            }
+            animate={isMobile ? {} : { opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 0.8, type: "spring", stiffness: 50 }}
             className="text-center max-w-[800px] mx-auto pt-10"
           >
@@ -220,8 +247,8 @@ export default function Team() {
             return (
               <motion.div
                 key={member.name}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={isMobile ? false : { opacity: 0, y: 50 }}
+                whileInView={isMobile ? {} : { opacity: 1, y: 0 }}
                 viewport={{ once: false, amount: 0.2 }}
                 transition={{ duration: 0.8, type: "spring", stiffness: 50 }}
                 className={`flex flex-col ${isEven ? "md:flex-row" : "md:flex-row-reverse"} gap-12 lg:gap-24 items-center`}
@@ -286,8 +313,8 @@ export default function Team() {
       <section className="px-6 py-24 relative-z">
         <div className="max-w-[1200px] mx-auto">
           <motion.div
-            initial={{ opacity: 0, y: 50, scale: 0.95 }}
-            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            initial={isMobile ? false : { opacity: 0, y: 50, scale: 0.95 }}
+            whileInView={isMobile ? {} : { opacity: 1, y: 0, scale: 1 }}
             viewport={{ once: false, amount: 0.3 }}
             transition={{
               duration: 0.8,

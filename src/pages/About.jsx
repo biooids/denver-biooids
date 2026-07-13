@@ -1,5 +1,5 @@
 //src/pages/About.jsx
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import {
@@ -16,42 +16,55 @@ import {
   ArrowRight,
 } from "lucide-react";
 
+// Custom Hook to check for mobile
+function useIsMobile(breakpoint = 768) {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < breakpoint);
+    checkMobile(); // Check immediately
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, [breakpoint]);
+
+  return isMobile;
+}
+
 const values = [
   {
     icon: BookOpen,
     title: "Education First",
-    description:
-      "Every girl deserves the right to learn, grow, and lead[cite: 3].",
+    description: "Every girl deserves the right to learn, grow, and lead.",
   },
   {
     icon: Heart,
     title: "Holistic Support",
     description:
-      "Tackling financial barriers, gender bias, and the lack of role models[cite: 3].",
+      "Tackling financial barriers, gender bias, and the lack of role models.",
   },
   {
     icon: Target,
     title: "Community Driven",
     description:
-      "Monthly workshops with parents and local leaders to shift cultural mindsets[cite: 3].",
+      "Monthly workshops with parents and local leaders to shift cultural mindsets.",
   },
   {
     icon: Shield,
     title: "Safe Spaces",
     description:
-      "Establishing dedicated safe spaces and providing female teacher guidance[cite: 4].",
+      "Establishing dedicated safe spaces and providing female teacher guidance.",
   },
   {
     icon: Wallet,
     title: "Financial Transparency",
     description:
-      "Strict accountability over our 1,000,000 RWF budget through monthly reports[cite: 3].",
+      "Strict accountability over our 1,000,000 RWF budget through monthly reports.",
   },
   {
     icon: Globe,
     title: "Sustainable Impact",
     description:
-      "Building endowment funds and partnering with local businesses for continuity[cite: 4].",
+      "Building endowment funds and partnering with local businesses for continuity.",
   },
 ];
 
@@ -60,37 +73,37 @@ const timeline = [
     year: "Months 1-3",
     title: "Foundation",
     description:
-      "Establish local partnerships, set up mentorship structures, and select the first cohort of 200 at-risk girls[cite: 3].",
+      "Establish local partnerships, set up mentorship structures, and select the first cohort of 200 at-risk girls.",
   },
   {
     year: "Months 4-6",
     title: "Launch",
     description:
-      "Distribute scholarships and hygiene kits[cite: 3]. Initiate weekly safe-space meetings between girls and mentors[cite: 3].",
+      "Distribute scholarships and hygiene kits. Initiate weekly safe-space meetings between girls and mentors.",
   },
   {
     year: "Months 7-9",
     title: "Engagement",
     description:
-      "Roll out parent workshops and community leader forums to address early marriage and education value[cite: 3].",
+      "Roll out parent workshops and community leader forums to address early marriage and education value.",
   },
   {
     year: "Months 10-12",
     title: "Evaluation",
     description:
-      "Conduct academic impact assessments, gather feedback, and prepare scaling model for Year 2[cite: 3].",
+      "Conduct academic impact assessments, gather feedback, and prepare scaling model for Year 2.",
   },
   {
     year: "June 2026",
     title: "Infrastructure",
     description:
-      "Building a dormitory by June 2026 to eliminate the dangers of long commutes, ensuring girls stay safe[cite: 4].",
+      "Building a dormitory by June 2026 to eliminate the dangers of long commutes, ensuring girls stay safe.",
   },
   {
     year: "Future",
     title: "Vocational Excellence",
     description:
-      "Launching training in IT and sustainable agriculture to boost employability and provide practical skills[cite: 4].",
+      "Launching training in IT and sustainable agriculture to boost employability and provide practical skills.",
   },
 ];
 
@@ -102,13 +115,13 @@ const pillars = [
     image:
       "https://res.cloudinary.com/dwk1wfwpw/image/upload/v1783850417/Picture_zdvpey.png",
     paragraphs: [
-      "Empower Her Education is dedicated to eliminating the barriers that force girls in Gatsata to drop out[cite: 3].",
-      "We believe that when you educate a girl, you educate a nation[cite: 3]. But when a girl is forced to drop out due to poverty or biology, an entire community loses its future leader, innovator, and changemaker[cite: 3].",
+      "Empower Her Education is dedicated to eliminating the barriers that force girls in Gatsata to drop out.",
+      "We believe that when you educate a girl, you educate a nation. But when a girl is forced to drop out due to poverty or biology, an entire community loses its future leader, innovator, and changemaker.",
     ],
     points: [
-      "Financial grants to cover school fees and supplies[cite: 3]",
-      "Pairing at-risk girls with professional female mentors[cite: 3]",
-      "Monthly workshops with parents and local leaders[cite: 3]",
+      "Financial grants to cover school fees and supplies",
+      "Pairing at-risk girls with professional female mentors",
+      "Monthly workshops with parents and local leaders",
     ],
   },
   {
@@ -118,13 +131,13 @@ const pillars = [
     image:
       "https://res.cloudinary.com/dwk1wfwpw/image/upload/v1783855593/images_s1a7zt.jpg",
     paragraphs: [
-      "In Gatsata, Rwanda, hundreds of teenage girls drop out of high school each year[cite: 3]. Currently, 42% of girls in Gatsata-area high schools do not complete secondary education, compared to just 21% of boys[cite: 3].",
-      "A staggering 62% of enrolled girls drop out before reaching Grade 11[cite: 3]. The root causes are deeply systemic: 60% of dropout cases are linked to extreme poverty, while 65% of dropout cases link directly to absent menstrual hygiene facilities[cite: 3].",
+      "In Gatsata, Rwanda, hundreds of teenage girls drop out of high school each year. Currently, 42% of girls in Gatsata-area high schools do not complete secondary education, compared to just 21% of boys.",
+      "A staggering 62% of enrolled girls drop out before reaching Grade 11. The root causes are deeply systemic: 60% of dropout cases are linked to extreme poverty, while 65% of dropout cases link directly to absent menstrual hygiene facilities.",
     ],
     points: [
-      "42% female dropout rate vs 21% for boys[cite: 3]",
-      "60% of cases linked to extreme poverty[cite: 3]",
-      "65% of cases caused by absent menstrual facilities[cite: 3]",
+      "42% female dropout rate vs 21% for boys",
+      "60% of cases linked to extreme poverty",
+      "65% of cases caused by absent menstrual facilities",
     ],
   },
   {
@@ -134,13 +147,13 @@ const pillars = [
     image:
       "https://res.cloudinary.com/dwk1wfwpw/image/upload/v1783850678/Picture_jlbrwb.png",
     paragraphs: [
-      "We deployed a holistic program tackling financial barriers, gender bias, and the lack of role models[cite: 3]. Through grassroots mobilization, we established a local task force comprising village elders, experienced teachers, and influential local leaders[cite: 4].",
-      "The 'Girls' Room Initiative' establishes dedicated safe spaces for hygiene and peer support[cite: 4]. Using community funds, we provide free sanitary pads and spare uniforms to ensure attendance, while trained female teachers serve as focal points for emotional guidance[cite: 4].",
+      "We deployed a holistic program tackling financial barriers, gender bias, and the lack of role models. Through grassroots mobilization, we established a local task force comprising village elders, experienced teachers, and influential local leaders.",
+      "The 'Girls' Room Initiative' establishes dedicated safe spaces for hygiene and peer support. Using community funds, we provide free sanitary pads and spare uniforms to ensure attendance, while trained female teachers serve as focal points for emotional guidance.",
     ],
     points: [
-      "Dedicated safe spaces for hygiene and peer support[cite: 4]",
-      "Free sanitary pads and spare uniforms[cite: 4]",
-      "Grassroots mobilization with local elders and leaders[cite: 4]",
+      "Dedicated safe spaces for hygiene and peer support",
+      "Free sanitary pads and spare uniforms",
+      "Grassroots mobilization with local elders and leaders",
     ],
   },
   {
@@ -167,20 +180,24 @@ const pillars = [
     image:
       "https://res.cloudinary.com/dwk1wfwpw/image/upload/v1783851152/Picture_jm07ya.png",
     paragraphs: [
-      "By directly funding hygiene, fees, and cultural shifts, we anticipate driving the dropout rate from 42% down to 15% within the first three years of program maturity. We have already achieved a 40% reduction in female dropout rates within the first three years of the initiative[cite: 4].",
-      "Our 2026 goal is to realize the vision where every girl in the district completes twelve years of basic education, fostering a new generation of empowered Rwandan female leaders[cite: 4]. When you empower a girl, you ignite a future for the entire nation[cite: 4].",
+      "By directly funding hygiene, fees, and cultural shifts, we anticipate driving the dropout rate from 42% down to 15% within the first three years of program maturity. We have already achieved a 40% reduction in female dropout rates within the first three years of the initiative.",
+      "Our 2026 goal is to realize the vision where every girl in the district completes twelve years of basic education, fostering a new generation of empowered Rwandan female leaders. When you empower a girl, you ignite a future for the entire nation.",
     ],
     points: [
       "Driving the dropout rate from 42% down to 15%",
-      "Goal: 12 years of basic education for every girl[cite: 4]",
-      "Fostering a new generation of empowered female leaders[cite: 4]",
+      "Goal: 12 years of basic education for every girl",
+      "Fostering a new generation of empowered female leaders",
     ],
   },
 ];
 
 export default function About() {
-  // Fluid Blob tracking logic matches Home.jsx exactly
+  const isMobile = useIsMobile();
+
+  // Fluid Blob tracking logic
   useEffect(() => {
+    if (window.innerWidth < 768) return; // Disable blob tracking on mobile
+
     const blob = document.getElementById("cursor-blob");
     if (!blob) return;
 
@@ -202,14 +219,16 @@ export default function About() {
   return (
     <div className="relative pt-24">
       {/* FLUID BLOB */}
-      <div id="cursor-blob"></div>
+      {!isMobile && <div id="cursor-blob"></div>}
 
       {/* Hero */}
       <section className="px-6 pb-16 relative-z">
         <div className="max-w-[1200px] mx-auto">
           <motion.div
-            initial={{ opacity: 0, y: 40, filter: "blur(10px)" }}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            initial={
+              isMobile ? false : { opacity: 0, y: 40, filter: "blur(10px)" }
+            }
+            animate={isMobile ? {} : { opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 0.8, type: "spring", stiffness: 50 }}
             className="text-center max-w-[800px] mx-auto pt-10"
           >
@@ -218,10 +237,9 @@ export default function About() {
             </h1>
             <p className="text-lg text-[#adb5bd] leading-relaxed">
               We are dedicated to eliminating the barriers that force girls in
-              Gatsata to drop out[cite: 3]. Through our flagship project,
-              Empower Her Education, we tackle financial barriers, gender bias,
-              and the lack of role models to ignite a future for the entire
-              nation[cite: 3, 4].
+              Gatsata to drop out. Through our flagship project, Empower Her
+              Education, we tackle financial barriers, gender bias, and the lack
+              of role models to ignite a future for the entire nation.
             </p>
           </motion.div>
         </div>
@@ -231,8 +249,12 @@ export default function About() {
       <section className="px-6 py-16 overflow-hidden relative-z">
         <div className="max-w-[1200px] mx-auto">
           <motion.div
-            initial={{ opacity: 0, y: 30, filter: "blur(5px)" }}
-            whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            initial={
+              isMobile ? false : { opacity: 0, y: 30, filter: "blur(5px)" }
+            }
+            whileInView={
+              isMobile ? {} : { opacity: 1, y: 0, filter: "blur(0px)" }
+            }
             viewport={{ once: false, amount: 0.3 }}
             transition={{ duration: 0.8, type: "spring", stiffness: 80 }}
             className="mb-20"
@@ -261,13 +283,19 @@ export default function About() {
                 >
                   {/* Image Side */}
                   <motion.div
-                    initial={{
-                      opacity: 0,
-                      x: isEven ? -60 : 60,
-                      scale: 0.95,
-                      rotateY: isEven ? -10 : 10,
-                    }}
-                    whileInView={{ opacity: 1, x: 0, scale: 1, rotateY: 0 }}
+                    initial={
+                      isMobile
+                        ? false
+                        : {
+                            opacity: 0,
+                            x: isEven ? -60 : 60,
+                            scale: 0.95,
+                            rotateY: isEven ? -10 : 10,
+                          }
+                    }
+                    whileInView={
+                      isMobile ? {} : { opacity: 1, x: 0, scale: 1, rotateY: 0 }
+                    }
                     viewport={{ once: false, amount: 0.3 }}
                     transition={{
                       duration: 0.8,
@@ -302,12 +330,18 @@ export default function About() {
 
                   {/* Text Side */}
                   <motion.div
-                    initial={{
-                      opacity: 0,
-                      x: isEven ? 60 : -60,
-                      filter: "blur(8px)",
-                    }}
-                    whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+                    initial={
+                      isMobile
+                        ? false
+                        : {
+                            opacity: 0,
+                            x: isEven ? 60 : -60,
+                            filter: "blur(8px)",
+                          }
+                    }
+                    whileInView={
+                      isMobile ? {} : { opacity: 1, x: 0, filter: "blur(0px)" }
+                    }
                     viewport={{ once: false, amount: 0.3 }}
                     transition={{
                       duration: 0.8,
@@ -365,8 +399,12 @@ export default function About() {
       <section className="px-6 py-24 relative-z">
         <div className="max-w-[1200px] mx-auto">
           <motion.div
-            initial={{ opacity: 0, y: 30, filter: "blur(5px)" }}
-            whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            initial={
+              isMobile ? false : { opacity: 0, y: 30, filter: "blur(5px)" }
+            }
+            whileInView={
+              isMobile ? {} : { opacity: 1, y: 0, filter: "blur(0px)" }
+            }
             viewport={{ once: false, amount: 0.3 }}
             transition={{ duration: 0.8, type: "spring", stiffness: 80 }}
             className="text-center mb-16"
@@ -385,8 +423,10 @@ export default function About() {
               return (
                 <motion.div
                   key={i}
-                  initial={{ opacity: 0, y: 30, scale: 0.95 }}
-                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                  initial={
+                    isMobile ? false : { opacity: 0, y: 30, scale: 0.95 }
+                  }
+                  whileInView={isMobile ? {} : { opacity: 1, y: 0, scale: 1 }}
                   viewport={{ once: false, amount: 0.1 }}
                   transition={{
                     duration: 0.6,
@@ -416,8 +456,12 @@ export default function About() {
       <section className="px-6 py-24 relative-z">
         <div className="max-w-[1200px] mx-auto">
           <motion.div
-            initial={{ opacity: 0, y: 30, filter: "blur(5px)" }}
-            whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            initial={
+              isMobile ? false : { opacity: 0, y: 30, filter: "blur(5px)" }
+            }
+            whileInView={
+              isMobile ? {} : { opacity: 1, y: 0, filter: "blur(0px)" }
+            }
             viewport={{ once: false, amount: 0.3 }}
             transition={{ duration: 0.8, type: "spring", stiffness: 80 }}
             className="text-center mb-20"
@@ -427,7 +471,7 @@ export default function About() {
             </h2>
             <p className="text-[#adb5bd] max-w-xl mx-auto text-lg">
               Our step-by-step plan to combat early departure and economic
-              barriers in Gatsata[cite: 3].
+              barriers in Gatsata.
             </p>
           </motion.div>
 
@@ -438,8 +482,12 @@ export default function About() {
             {timeline.map((item, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 40, filter: "blur(5px)" }}
-                whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                initial={
+                  isMobile ? false : { opacity: 0, y: 40, filter: "blur(5px)" }
+                }
+                whileInView={
+                  isMobile ? {} : { opacity: 1, y: 0, filter: "blur(0px)" }
+                }
                 viewport={{ once: false, amount: 0.3 }}
                 transition={{ duration: 0.6, type: "spring", stiffness: 60 }}
                 className={`relative flex flex-col md:flex-row gap-8 mb-16 ${

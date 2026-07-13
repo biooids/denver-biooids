@@ -15,6 +15,20 @@ import { Link } from "react-router-dom";
 import Carousel from "../components/Carousel";
 import VideoHero from "../components/VideoHero";
 
+// Custom Hook to check for mobile
+function useIsMobile(breakpoint = 768) {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < breakpoint);
+    checkMobile(); // Check immediately
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, [breakpoint]);
+
+  return isMobile;
+}
+
 // Fully Accurate Challenge Data
 const challenges = [
   {
@@ -159,8 +173,12 @@ function AnimatedCounter({ target, suffix }) {
 }
 
 export default function Home() {
-  // Fluid Blob tracking logic
+  const isMobile = useIsMobile();
+
+  // Fluid Blob tracking logic - disabled on mobile to prevent lag
   useEffect(() => {
+    if (window.innerWidth < 768) return; // Kill blob on mobile
+
     const blob = document.getElementById("cursor-blob");
     if (!blob) return;
 
@@ -178,7 +196,8 @@ export default function Home() {
 
   return (
     <div className="relative overflow-x-hidden">
-      <div id="cursor-blob"></div>
+      {/* Hide blob completely on mobile via CSS class or logic */}
+      {!isMobile && <div id="cursor-blob"></div>}
 
       {/* Hero Section */}
       <section className="relative px-6 pt-32 pb-16 md:pt-40 md:pb-24 relative-z flex items-center">
@@ -198,8 +217,12 @@ export default function Home() {
           {/* Left Side */}
           <div className="text-left">
             <motion.h1
-              initial={{ opacity: 0, y: 40, filter: "blur(10px)" }}
-              whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              initial={
+                isMobile ? false : { opacity: 0, y: 40, filter: "blur(10px)" }
+              }
+              whileInView={
+                isMobile ? {} : { opacity: 1, y: 0, filter: "blur(0px)" }
+              }
               viewport={{ once: false, amount: 0.2 }}
               transition={{
                 duration: 0.8,
@@ -214,8 +237,8 @@ export default function Home() {
             </motion.h1>
 
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={isMobile ? false : { opacity: 0, y: 20 }}
+              whileInView={isMobile ? {} : { opacity: 1, y: 0 }}
               viewport={{ once: false, amount: 0.2 }}
               transition={{ duration: 0.6, delay: 0.3 }}
               className="text-[clamp(1.05rem,2vw,1.2rem)] text-[#adb5bd] max-w-[500px] mb-10 leading-relaxed"
@@ -226,8 +249,8 @@ export default function Home() {
             </motion.p>
 
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={isMobile ? false : { opacity: 0, y: 20 }}
+              whileInView={isMobile ? {} : { opacity: 1, y: 0 }}
               viewport={{ once: false, amount: 0.2 }}
               transition={{ duration: 0.6, delay: 0.4 }}
               className="flex gap-4 justify-start flex-wrap mb-12"
@@ -247,8 +270,8 @@ export default function Home() {
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={isMobile ? false : { opacity: 0, y: 20 }}
+              whileInView={isMobile ? {} : { opacity: 1, y: 0 }}
               viewport={{ once: false, amount: 0.2 }}
               transition={{ duration: 0.6, delay: 0.5 }}
               className="flex gap-4"
@@ -269,8 +292,14 @@ export default function Home() {
 
           {/* Right Side - Hero Image with Authentic Humor Stickers */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
-            whileInView={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+            initial={
+              isMobile
+                ? false
+                : { opacity: 0, scale: 0.9, filter: "blur(10px)" }
+            }
+            whileInView={
+              isMobile ? {} : { opacity: 1, scale: 1, filter: "blur(0px)" }
+            }
             viewport={{ once: false, amount: 0.2 }}
             transition={{
               duration: 1.2,
@@ -375,8 +404,12 @@ export default function Home() {
       <section className="py-16 md:py-24 px-6 relative-z overflow-hidden">
         <div className="max-w-[1200px] mx-auto">
           <motion.div
-            initial={{ opacity: 0, y: 30, filter: "blur(5px)" }}
-            whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            initial={
+              isMobile ? false : { opacity: 0, y: 30, filter: "blur(5px)" }
+            }
+            whileInView={
+              isMobile ? {} : { opacity: 1, y: 0, filter: "blur(0px)" }
+            }
             viewport={{ once: false, amount: 0.3 }}
             transition={{ duration: 0.8, type: "spring", stiffness: 80 }}
             className="text-center mb-16 md:mb-20"
@@ -402,15 +435,21 @@ export default function Home() {
                     isEven ? "lg:flex-row" : "lg:flex-row-reverse"
                   } gap-10 lg:gap-20 items-center`}
                 >
-                  {/* Carousel Side - Added z-20 so it never gets blocked by text divs! */}
+                  {/* Carousel Side */}
                   <motion.div
-                    initial={{
-                      opacity: 0,
-                      x: isEven ? -60 : 60,
-                      scale: 0.95,
-                      rotate: isEven ? -2 : 2,
-                    }}
-                    whileInView={{ opacity: 1, x: 0, scale: 1, rotate: 0 }}
+                    initial={
+                      isMobile
+                        ? false
+                        : {
+                            opacity: 0,
+                            x: isEven ? -60 : 60,
+                            scale: 0.95,
+                            rotate: isEven ? -2 : 2,
+                          }
+                    }
+                    whileInView={
+                      isMobile ? {} : { opacity: 1, x: 0, scale: 1, rotate: 0 }
+                    }
                     viewport={{ once: false, amount: 0.2 }}
                     transition={{
                       duration: 0.8,
@@ -430,14 +469,20 @@ export default function Home() {
                     </div>
                   </motion.div>
 
-                  {/* Text Side - Added z-10 so it stays underneath the Carousel wrapper */}
+                  {/* Text Side */}
                   <motion.div
-                    initial={{
-                      opacity: 0,
-                      x: isEven ? 60 : -60,
-                      filter: "blur(8px)",
-                    }}
-                    whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+                    initial={
+                      isMobile
+                        ? false
+                        : {
+                            opacity: 0,
+                            x: isEven ? 60 : -60,
+                            filter: "blur(8px)",
+                          }
+                    }
+                    whileInView={
+                      isMobile ? {} : { opacity: 1, x: 0, filter: "blur(0px)" }
+                    }
                     viewport={{ once: false, amount: 0.2 }}
                     transition={{
                       duration: 0.8,
@@ -524,8 +569,8 @@ export default function Home() {
       <section className="py-12 md:py-24 px-6 relative-z">
         <div className="max-w-[1200px] mx-auto">
           <motion.div
-            initial={{ opacity: 0, y: 50, scale: 0.95 }}
-            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            initial={isMobile ? false : { opacity: 0, y: 50, scale: 0.95 }}
+            whileInView={isMobile ? {} : { opacity: 1, y: 0, scale: 1 }}
             viewport={{ once: false, amount: 0.3 }}
             transition={{
               duration: 0.8,

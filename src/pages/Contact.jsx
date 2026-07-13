@@ -4,6 +4,20 @@ import { motion } from "framer-motion";
 import { MapPin, MessageSquare, Mail, ExternalLink } from "lucide-react";
 import { FaInstagram } from "react-icons/fa";
 
+// Custom Hook to check for mobile
+function useIsMobile(breakpoint = 768) {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < breakpoint);
+    checkMobile(); // Check immediately
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, [breakpoint]);
+
+  return isMobile;
+}
+
 const teamContacts = [
   {
     name: "Ajah Mawut Pech",
@@ -62,9 +76,12 @@ const faqs = [
 
 export default function Contact() {
   const [openFaq, setOpenFaq] = useState(null);
+  const isMobile = useIsMobile();
 
-  // Fluid Blob tracking logic matches the rest of the site
+  // Fluid Blob tracking logic - disabled on mobile
   useEffect(() => {
+    if (window.innerWidth < 768) return; // Kill blob on mobile
+
     const blob = document.getElementById("cursor-blob");
     if (!blob) return;
 
@@ -86,14 +103,16 @@ export default function Contact() {
   return (
     <div className="relative pt-24">
       {/* FLUID BLOB */}
-      <div id="cursor-blob"></div>
+      {!isMobile && <div id="cursor-blob"></div>}
 
       {/* Hero */}
       <section className="px-6 pb-16 relative-z">
         <div className="max-w-[1200px] mx-auto">
           <motion.div
-            initial={{ opacity: 0, y: 40, filter: "blur(10px)" }}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            initial={
+              isMobile ? false : { opacity: 0, y: 40, filter: "blur(10px)" }
+            }
+            animate={isMobile ? {} : { opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 0.8, type: "spring", stiffness: 50 }}
             className="text-center max-w-[800px] mx-auto pt-10"
           >
@@ -115,8 +134,12 @@ export default function Contact() {
           <div className="grid lg:grid-cols-3 gap-12">
             {/* Left Column: Location & Socials */}
             <motion.div
-              initial={{ opacity: 0, x: -40, filter: "blur(5px)" }}
-              whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+              initial={
+                isMobile ? false : { opacity: 0, x: -40, filter: "blur(5px)" }
+              }
+              whileInView={
+                isMobile ? {} : { opacity: 1, x: 0, filter: "blur(0px)" }
+              }
               viewport={{ once: false, amount: 0.3 }}
               transition={{ duration: 0.8, type: "spring", stiffness: 60 }}
               className="lg:col-span-1 space-y-8"
@@ -167,8 +190,12 @@ export default function Contact() {
 
             {/* Right Column: Team Emails */}
             <motion.div
-              initial={{ opacity: 0, x: 40, filter: "blur(5px)" }}
-              whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+              initial={
+                isMobile ? false : { opacity: 0, x: 40, filter: "blur(5px)" }
+              }
+              whileInView={
+                isMobile ? {} : { opacity: 1, x: 0, filter: "blur(0px)" }
+              }
               viewport={{ once: false, amount: 0.3 }}
               transition={{ duration: 0.8, type: "spring", stiffness: 60 }}
               className="lg:col-span-2"
@@ -207,8 +234,8 @@ export default function Contact() {
       <section className="px-6 py-24 relative-z">
         <div className="max-w-[800px] mx-auto">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={isMobile ? false : { opacity: 0, y: 30 }}
+            whileInView={isMobile ? {} : { opacity: 1, y: 0 }}
             viewport={{ once: false }}
             transition={{ duration: 0.8, type: "spring", stiffness: 60 }}
             className="text-left mb-12"
@@ -225,8 +252,8 @@ export default function Contact() {
             {faqs.map((faq, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={isMobile ? false : { opacity: 0, y: 20 }}
+                whileInView={isMobile ? {} : { opacity: 1, y: 0 }}
                 viewport={{ once: false }}
                 transition={{ duration: 0.5, delay: i * 0.1, type: "spring" }}
                 className="glass-card overflow-hidden hover:border-[rgba(255,255,255,0.1)] transition-colors"
