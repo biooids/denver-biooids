@@ -194,7 +194,7 @@ export default function Home() {
           <div className="w-[1px] h-20 bg-gradient-to-t from-transparent to-[#f5a623]" />
         </div>
 
-        <div className="relative z-10 max-w-[1300px] mx-auto w-full grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <div className="relative z-10 max-w-[1300px] mx-auto w-full grid lg:grid-cols-2  items-center">
           {/* Left Side */}
           <div className="text-left">
             <motion.h1
