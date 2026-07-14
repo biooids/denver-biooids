@@ -15,21 +15,7 @@ import {
   Shield,
   ArrowRight,
 } from "lucide-react";
-
-// Custom Hook to check for mobile
-function useIsMobile(breakpoint = 768) {
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < breakpoint);
-    checkMobile(); // Check immediately
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, [breakpoint]);
-
-  return isMobile;
-}
-
+import useIsMobile from "../hooks/useIsMobile";
 const values = [
   {
     icon: BookOpen,

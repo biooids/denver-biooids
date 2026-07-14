@@ -14,20 +14,7 @@ import {
 import { Link } from "react-router-dom";
 import Carousel from "../components/Carousel";
 import VideoHero from "../components/VideoHero";
-
-// Custom Hook to check for mobile
-function useIsMobile(breakpoint = 768) {
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < breakpoint);
-    checkMobile(); // Check immediately
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, [breakpoint]);
-
-  return isMobile;
-}
+import useIsMobile from "../hooks/useIsMobile";
 
 // Fully Accurate Challenge Data
 const challenges = [

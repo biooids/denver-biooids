@@ -1,20 +1,19 @@
-//src/hooks/useIsMobile.js
 import { useState, useEffect } from "react";
 
 export default function useIsMobile(breakpoint = 768) {
-  const [isMobile, setIsMobile] = useState(false);
+  // Initialize with the actual window width immediately
+  const [isMobile, setIsMobile] = useState(() => {
+    if (typeof window !== "undefined") {
+      return window.innerWidth < breakpoint;
+    }
+    return false;
+  });
 
   useEffect(() => {
-    // Function to check screen width
     const checkMobile = () => setIsMobile(window.innerWidth < breakpoint);
 
-    // Check immediately on mount
-    checkMobile();
-
-    // Add event listener for resizing
+    // We already checked on mount, so just add the event listener
     window.addEventListener("resize", checkMobile);
-
-    // Cleanup
     return () => window.removeEventListener("resize", checkMobile);
   }, [breakpoint]);
 

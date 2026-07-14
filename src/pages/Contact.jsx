@@ -3,20 +3,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { MapPin, MessageSquare, Mail, ExternalLink } from "lucide-react";
 import { FaInstagram } from "react-icons/fa";
-
-// Custom Hook to check for mobile
-function useIsMobile(breakpoint = 768) {
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < breakpoint);
-    checkMobile(); // Check immediately
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, [breakpoint]);
-
-  return isMobile;
-}
+import useIsMobile from "../hooks/useIsMobile";
 
 const teamContacts = [
   {
