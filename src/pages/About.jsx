@@ -175,6 +175,21 @@ const pillars = [
       "Fostering a new generation of empowered female leaders",
     ],
   },
+  {
+    icon: CheckCircle,
+    label: "e-learning",
+    title: "E-learning platform w've created to support",
+    image:
+      "https://res.cloudinary.com/dwk1wfwpw/image/upload/v1784142341/Screenshot_from_2026-07-15_21-01-32_eawnhl.png",
+    paragraphs: [
+      "This is an e-learning platform we've created to support the girls in their studies and help them with their homework. The platform is designed to be user-friendly and accessible to all students, regardless of their level of education or experience with technology.",
+    ],
+    points: [
+      "Online learning platform for students to access educational resources and materials.",
+      "Interactive features such as quizzes, assignments, and discussion forums.",
+      "The platform is designed to be user-friendly and accessible to all students.",
+    ],
+  },
 ];
 
 export default function About() {
